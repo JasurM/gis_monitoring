@@ -2,7 +2,7 @@ import requests
 import json
 
 PROVINCES = {
-    1 : "Қорақолпоғистон Респ.",
+    1 : "Қорақолпоғистон Республикаси",
     2 : "Андижон вилояти",
     3 : "Бухоро вилояти",
     4 : "Жиззах вилояти",
@@ -14,7 +14,8 @@ PROVINCES = {
     10 : "Сирдарё вилояти",
     11 : "Тошкент вилояти",
     12 : "Фарғона вилояти",
-    13 : "Хоразм вилояти"
+    13 : "Хоразм вилояти",
+    14 : "Тошкент шахар"
 }
 
 def get_token(exp):
@@ -29,6 +30,7 @@ def get_token(exp):
     response = requests.request("POST", url, data=payload, headers=headers)
 
     resp = response.json()
+    print(response.text)
     token = resp['token']
     return token, resp['expires']
 
@@ -42,7 +44,7 @@ def get_monitoring(token):
         'token': token,
         'cache-control': "no-cache"
         }
-
+    print(headers)
     response = requests.request("GET", url, headers=headers, params=querystring)
     print(response.json())
     return response.json()
