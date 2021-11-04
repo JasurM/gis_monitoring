@@ -2,7 +2,7 @@
 var API_URL = window.location.origin + "/api"
 
 
-const reja = [{ "sum": 4.470000000000001, "viloyat_id": 1 }, { "sum": 172.86, "viloyat_id": 2 }, { "sum": 19.27, "viloyat_id": 3 }, { "sum": 172.61, "viloyat_id": 4 }, { "sum": 52.79, "viloyat_id": 5 }, { "sum": 250.94, "viloyat_id": 6 }, { "sum": 27.93, "viloyat_id": 7 }, { "sum": 1.9, "viloyat_id": 8 }, { "sum": 34, "viloyat_id": 9 }, { "sum": 12.68, "viloyat_id": 11 }, { "sum": 46.65, "viloyat_id": 12 } ]
+const reja = [{ "sum": 53000, "viloyat_id": 1 }, { "sum": 76000, "viloyat_id": 2 }, { "sum": 60600, "viloyat_id": 3 }, { "sum": 93500, "viloyat_id": 4 }, { "sum": 140000, "viloyat_id": 5 }, { "sum": 38039, "viloyat_id": 6 }, { "sum": 67750, "viloyat_id": 7 }, { "sum": 94230, "viloyat_id": 8 }, { "sum": 90800, "viloyat_id": 9 },{ "sum": 80000, "viloyat_id": 10 }, { "sum": 103845, "viloyat_id": 11 }, { "sum": 99500, "viloyat_id": 12 }, { "sum": 33200, "viloyat_id": 13 }, { "sum": 1561, "viloyat_id": 14 } ]
 
 
 function reja_find(arr,vil_id){
@@ -33,10 +33,10 @@ $(document).ready(function(){
                 <tr>
                     <td>${crop.viloyat_id}</td>
                     <td>${crop.viloyat}</td>
-                    <td>${ff.toFixed(2)}  </td>
-                    <td>${crop.sum.toFixed(2)}</td>
-                    <td>${crop.sum_today.toFixed(2)}</td>
-                    <td>${farqi.toFixed(2)}</td>
+                    <td>${ff.toFixed(0)}  </td>
+                    <td>${crop.sum.toFixed(1)}</td>
+                    <td>${crop.sum_today.toFixed(1)}</td>
+                    <td>${farqi.toFixed(1)}</td>
                 </tr>
                 `
         

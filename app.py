@@ -1,8 +1,9 @@
 from flask import *
 import datetime
 from core import *
+from flask_cors import *
 app = Flask(__name__)
-
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route("/")
 def main():
@@ -36,5 +37,5 @@ def monitoring():
     return jsonify(ret_data)
 
 if __name__ == '__main__':
-    app.run(port=1234)
+    app.run()
 
