@@ -4,9 +4,7 @@ const reja = [{ "sum": 53000, "viloyat_id": 1 }, { "sum": 76000, "viloyat_id": 2
 
 
 function reja_find(arr,vil_id){
-    console.log(arr);
     for(var i=0; i<arr.length; i++){
-        console.log(arr[i].viloyat_id, vil_id);
         if(arr[i].viloyat_id==vil_id) return arr[i]['sum'];
     }
     return 0;
