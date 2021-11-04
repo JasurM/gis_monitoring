@@ -18,33 +18,4 @@ PROVINCES = {
     14 : "Тошкент шахар"
 }
 
-def get_token(exp):
-    url = "https://lis.agro.uz/portal/sharing/rest/generateToken"
 
-    payload = "username=portaladmin&password=AGSPortalUZagro2021&client=referer&referer=https%3A%2F%2Flis.agro.uz%2Fserver%2Frest%2Fservices%2FHosted%2F%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3%2FFeatureServer%2F0&experies="+ str(exp) + "&f=pjson"
-    headers = {
-        'content-type': "application/x-www-form-urlencoded",
-        'cache-control': "no-cache"
-        }
-
-    response = requests.request("POST", url, data=payload, headers=headers)
-
-    resp = response.json()
-    print(response.text)
-    token = resp['token']
-    return token, resp['expires']
-
-
-def get_monitoring(token):
-    url = "https://lis.agro.uz/server/rest/services/Hosted/%D0%9C%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3/FeatureServer/0/query"
-
-    querystring = {"where":"1=1","outFields":"*","returnGeometry":"false","f":"json"}
-
-    headers = {
-        'token': token,
-        'cache-control': "no-cache"
-        }
-    print(headers)
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    print(response.json())
-    return response.json()

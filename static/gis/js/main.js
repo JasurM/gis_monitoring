@@ -1,5 +1,5 @@
 
-var API_URL = window.location.origin + "/api"
+var API_URL = window.location.origin + "/gis"
 const reja = [{ "sum": 53000, "viloyat_id": 1 }, { "sum": 76000, "viloyat_id": 2 }, { "sum": 60600, "viloyat_id": 3 }, { "sum": 93500, "viloyat_id": 4 }, { "sum": 140000, "viloyat_id": 5 }, { "sum": 38039, "viloyat_id": 6 }, { "sum": 67750, "viloyat_id": 7 }, { "sum": 94230, "viloyat_id": 8 }, { "sum": 90800, "viloyat_id": 9 },{ "sum": 80000, "viloyat_id": 10 }, { "sum": 103845, "viloyat_id": 11 }, { "sum": 99500, "viloyat_id": 12 }, { "sum": 33200, "viloyat_id": 13 }, { "sum": 1561, "viloyat_id": 14 } ]
 
 
