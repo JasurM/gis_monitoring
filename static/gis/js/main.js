@@ -22,15 +22,17 @@ $(document).ready(function(){
         success: function(crops) {
             let html = "";
             const table_data = document.getElementById('data');
+            var ffs = 0;
             crops.map(crop => {
                 let id = crop.viloyat_id;
                 var ff = reja_find(reja, crop.viloyat_id);
+                ffs +=ff;                 
                 var farqi = ff-crop.sum;
                 let viloyat =
                     html = html +  `
-                <tr>
+                <tr class="viloyat" data-id="${crop.viloyat_id}" >
                     <td>${crop.viloyat_id}</td>
-                    <td>${crop.viloyat}</td>
+                    <td><a href='${API_URL}/page/monitoring/${crop.viloyat_id}'> ${crop.viloyat}</a></td>
                     <td>${ff.toFixed(0)}  </td>
                     <td>${crop.sum.toFixed(1)}</td>
                     <td>${crop.sum_today.toFixed(1)}</td>
@@ -39,8 +41,30 @@ $(document).ready(function(){
                 `
         
             });
+            var sum_total = crops.reduce(function(sum, current) {
+                return sum + current.sum;
+                }, 0);
+            var sum_today_total = crops.reduce(function(sum, current) {
+                return sum + current.sum_today;
+                }, 0);
+            var ss = ffs - sum_total;
+            html = html +  `
+            <tr>
+                <td colspan="2" ><b>Жами:</b></td>
+                <td><b>${ffs}</b> </td>
+                <td><b>${sum_total.toFixed(0)}</b> </td>
+                <td><b>${sum_today_total.toFixed(1)}</b> </td>
+                <td><b>${ss.toFixed(0)}</b> </td>
+            </tr>
+            `
+
+
             table_data.innerHTML = html
-        } 
+        },
+        complete : function () {
+            $(".viloyat").click(function(){
+                            });
+        }
     });
 
     

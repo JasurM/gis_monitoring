@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='gis/css/style.css') }}">
+    <style>
+        th, td {
+            text-align: center;
+            vertical-align: middle !important;
+            
+        }
+        td {
+            padding: 0.25rem !important;
+        }
+        .flex {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <a href="{{ url_for('gis.p_mon') }}" class="pull-left flex"> <h4>Отрга қайтиш</h4> </a>
+                <input type="hidden" name="vil_id" value="{{ vil_id }}">
+                
+                <h3> {{ vil_name }} кузги ғалла мониторинги </h3>
+            </div>
+            <div class="col-sm-12 px-5">
+                <table class="table table-bordered" style="overflow-x: auto">
+                    <thead>
+                        <tr class="text-center">
+                            <th rowspan="3">Туман номи</th>
+                            
+                        </tr>
+                        <tr>
+                            <th rowspan="2" >2022</th>
+                            <th colspan="2" >Амалда</th>
+                            <th rowspan="2" >Фарқи</th>
+                        </tr>
+                        <tr>
+                            <th>Жами</th>
+                            <th>Бир кунда</th>
+                            
+                        </tr>
+                    </thead>
+                    
+                    <tbody id="data">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src=" {{url_for('static', filename='gis/js/a.js')}} "></script>
+    <script>
+        var API_URL = window.location.origin + "/gis"
+        $(document).ready(function(){
+            var vil_id = $("input[name='vil_id']").val();
+            $.ajax({
+                type : 'GET',
+                url : API_URL + "/monitoring/" + vil_id,
+                success : function(crops){
+                    const table_data = document.getElementById('data');
+                    var html = "";
+
+                    crops.map(crop => {
+                let id = crop.viloyat_id;
+                var farqi = crop.reja-crop.sum;
+                
+                    html = html +  `
+                <tr>
+                    <td><b>${crop.tuman}</b></td>
+                    <td>${crop.reja.toFixed(0)}  </td>
+                    <td>${crop.sum.toFixed(0)}</td>
+                    <td>${crop.sum_today.toFixed(1)}</td>
+                    <td>${farqi.toFixed(0)}</td>
+                </tr>
+                `
+        
+            });
+            var reja_total = crops.reduce(function(sum, current) {
+                return sum + current.reja;
+                }, 0);
+            var sum_total = crops.reduce(function(sum, current) {
+                return sum + current.sum;
+                }, 0);
+            var sum_today_total = crops.reduce(function(sum, current) {
+                return sum + current.sum_today;
+                }, 0);
+            var ddf = reja_total - sum_total;
+            html = html +  `
+            <tr>
+                <td><b>Жами:</b></td>
+                <td><b>${reja_total.toFixed(0)}</b> </td>
+                <td><b>${sum_total.toFixed(0)}</b> </td>
+                <td><b>${sum_today_total.toFixed(1)}</b> </td>
+                <td><b>${ddf.toFixed(0)}</b> </td>
+            </tr>
+            `
+            
+            table_data.innerHTML = html
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

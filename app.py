@@ -1,5 +1,5 @@
 from flask import *
-from gis import gis
+from gis import *
 import datetime
 from core import *
 from caching import cache
@@ -13,5 +13,5 @@ def main():
     return "Hello Uzbekistan"
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
 
